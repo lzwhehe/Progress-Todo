@@ -1,0 +1,10 @@
+.env*
+ios/
+ios-web-fallback/
+node_modules/
+.next/
+*.png
+UsageBoard/
+career_assessment/
+pdf-chinese-translator/
+supabase/

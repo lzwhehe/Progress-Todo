@@ -1,0 +1,9 @@
+.env*
+!.env.example
+.next/
+node_modules/
+*.png
+ios/App/Pods/
+ios/App/build/
+ios/DerivedData/
+.vercel
