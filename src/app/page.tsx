@@ -3,7 +3,7 @@
 import QuadrantBoard from '@/components/QuadrantBoard';
 import { Quadrant, Task } from '@/types/task';
 import { FormEvent, useEffect, useMemo, useState } from 'react';
-import { Plus, Send, Sparkles, RefreshCcw, Settings } from 'lucide-react';
+import { Plus, Send, Sparkles, RefreshCcw, Settings, Loader2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 interface TaskAnalysis {
@@ -310,7 +310,7 @@ export default function HomePage() {
             <RefreshCcw size={16} />
           </button>
           <button className="button button-primary" disabled={!canSubmit || isAnalyzing} type="submit">
-            <Send size={16} />
+            {isAnalyzing ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
             {isAnalyzing ? '分析中' : '发送'}
           </button>
           <button
@@ -376,7 +376,11 @@ export default function HomePage() {
           <button className="button button-primary" disabled={!canSubmitManual} type="submit">添加</button>
         </form>
       ) : null}
-      <p className="ai-status">{latestDecision}</p>
+      <p className={`ai-status ${isAnalyzing ? 'is-analyzing' : ''}`}>
+        {isAnalyzing && <Loader2 size={13} className="animate-spin ai-status-spinner" />}
+        <span>{latestDecision}</span>
+        {isAnalyzing && <span className="ai-status-dots" aria-hidden="true" />}
+      </p>
       <QuadrantBoard tasks={activeTasks} onDeleteTask={deleteTask} onMoveTask={moveTask} />
     </main>
   );
